@@ -3,9 +3,8 @@ import java.util.List;
 import java.util.Scanner;
 
 public class Game {
-    private List<Player> players = new ArrayList<>();
+    public List<Player> players = new ArrayList<>();
     private Integer time;
-    private int gameRound = 0;
     public void setUpGame(){
         Scanner scanner = new Scanner(System.in);
         boolean gameStarted = false;
@@ -32,6 +31,6 @@ public class Game {
             }
         }
         GameHandler gameHandler = new GameHandler(this);
-        gameHandler.startGame();
+        gameHandler.startRound();
     }
 }
