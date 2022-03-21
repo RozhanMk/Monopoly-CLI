@@ -1,6 +1,9 @@
+import exceptions.InvestNotOwnedException;
 import exceptions.InvestOutOfCashException;
 import exceptions.InvestOwnedByAnotherException;
+import exceptions.NotTypeException;
 import exceptions.NotInvestException;
+import exceptions.SameAirportException;
 
 import java.util.ArrayList;
 
@@ -8,6 +11,7 @@ public class Player {
     private String name;
     private int id; // 1 2 3 ...
     private double cash;
+    private double saved;
     private int position; // from 0 to 23
     private boolean[] areas; // from 0 to 23. All the areas
     private boolean isInJail;
@@ -19,6 +23,7 @@ public class Player {
         this.name = name;
         this.id = id;
         cash = 1500;
+        saved = 0;
         position = 0;
         dice = 0;
         jailCount = 0;
@@ -32,6 +37,9 @@ public class Player {
 
     public int getId() {
         return this.id;
+    }
+    public double getSaved() {
+        return this.saved;
     }
 
     public double getCash() {
@@ -99,11 +107,6 @@ public class Player {
         return this.hasInvestInBank;
     }
 
-    public void setHasInvestInBank(boolean hasInvestInBank) {
-        this.hasInvestInBank = hasInvestInBank;
-    }
-
-
     public boolean buy(Invest invest) throws InvestOwnedByAnotherException, InvestOutOfCashException {
         
         if(invest.getCost() <= cash){
@@ -120,13 +123,53 @@ public class Player {
             throw new InvestOutOfCashException("you can't afford to buy this place!");
         }
     }
-    public boolean sell(Invest invest){
+    public boolean sell(Invest invest) throws InvestNotOwnedException{
         if( areas[invest.getId()] ){
             increaseCash(invest.getCost()/2);
             areas[invest.getId()] = false;
             invest.setOwner(null);
             return true ;
+        }else{
+            throw new InvestNotOwnedException("you don't own this place!");
         }
-        return false;
+    }
+    public boolean fly(Airport airport , int airportId) throws NotTypeException , SameAirportException{
+        if( airport.getId() != airportId ){
+            if(getField(airportId) instanceof Airport){
+                position = airportId;
+                cash -= airport.getFine();
+                return true;
+            }else{
+                throw new NotTypeException("the destination is not an airport!");
+            }
+        }else{
+            throw new SameAirportException("enter another airport!");
+        }
+    }
+    public boolean invest() throws NotTypeException{
+        if(position == 20){
+            if(hasInvestInBank){
+                cash += (2*saved);
+                saved = 0;
+                hasInvestInBank = false;
+            }else{
+                saved = cash/2;
+                cash -= (cash/2);
+                hasInvestInBank = true;
+            }
+            return true;
+        }else{
+            throw new NotTypeException("you're not in bank!");
+        }
+    }
+    public void property(){
+        System.out.println(cash);
+        System.out.print("[ ");
+        for (int i = 0; i < 24 ; i++) {
+            if(areas[i]){
+                System.out.printf("%d ",i+1);
+            }
+        }
+        System.out.print("]");
     }
 }

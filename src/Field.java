@@ -31,6 +31,9 @@ public abstract class Field {
     public double getFine() {
         return fine;
     }
+    public void setFine( double fine ){
+        this.fine = fine;
+    }
 
 
 }
