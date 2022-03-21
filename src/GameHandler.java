@@ -18,8 +18,8 @@ public class GameHandler {
                     System.out.println("Wrong dice number please try again");
                 }else{
                     diceEntered = true;
-                    int newPosition = (game.players.get(i).getPosition() + diceNumber) % 24;
-                    game.players.get(i).setPosition(newPosition);
+                    game.players.get(i).setDice(diceNumber);
+                    game.players.get(i).updatePosition();
                     playerTurn(game.players.get(i));
                 }
             }

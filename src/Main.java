@@ -11,7 +11,7 @@ public class Main {
                 gameCreated = true;
             }else{
                 // Will be replaced with exception
-                System.out.println("Wrong input");
+                System.out.println("no game created");
             }
         }
         scanner.close();
