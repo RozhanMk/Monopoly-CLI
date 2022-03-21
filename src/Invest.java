@@ -21,5 +21,8 @@ public abstract class Invest extends Field {
     public void setOwner(Player owner) {
         this.owner = owner;
     }
-    
+
+    public void buy(Player player){
+        player.buy(this);
+    }
 }

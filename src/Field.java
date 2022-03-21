@@ -1,3 +1,5 @@
+import Exceptions.NotInvestException;
+
 public abstract class Field {
     private int id;
     private double fine;
@@ -31,4 +33,6 @@ public abstract class Field {
     public double getFine() {
         return fine;
     }
+
+
 }
