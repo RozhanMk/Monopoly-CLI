@@ -20,15 +20,23 @@ public class GameHandler {
                     diceEntered = true;
                     game.players.get(i).setDice(diceNumber);
                     game.players.get(i).updatePosition();
-                    playerTurn(game.players.get(i));
+                    playerTurn(game.players.get(i) , scanner);
                 }
             }
         }
+        scanner.close();
         gameRound++;
         checkWin();
     }
-    public void playerTurn(Player player){
-        
+    public void playerTurn(Player player , Scanner scanner){
+        boolean turnFinished = false;
+        while (!turnFinished){
+            String input = scanner.next();
+            if(input.equals("buy")){
+                
+            }
+        }
+
     }
     public void checkWin(){
         //todo
