@@ -59,7 +59,7 @@ public class Player {
         position = newPosition;
     }
 
-    public boolean getIsInJail() {
+    public boolean isIsInJail() {
         return this.isInJail;
     }
 
@@ -83,13 +83,14 @@ public class Player {
         this.dice = dice;
     }
 
-    public boolean getHasInvestInBank() {
+    public boolean isHasInvestInBank() {
         return this.hasInvestInBank;
     }
 
     public void setHasInvestInBank(boolean hasInvestInBank) {
         this.hasInvestInBank = hasInvestInBank;
     }
+
 
     public void buy(Invest invest){
         if(invest.getCost() <= cash){
