@@ -92,24 +92,22 @@ public class Player {
     }
 
 
-    public void buy(Invest invest){
+    public boolean buy(Invest invest){
         if(invest.getCost() <= cash){
             decreaseCash(invest.getCost());
             areas[invest.getId()] = true;
             invest.setOwner(this);
-            return;
+            return true;
         }
-        System.out.println("Not enough money to buy here!");
-        return;
+        return false;
     }
-    public void sell(Invest invest){
+    public boolean sell(Invest invest){
         if( areas[invest.getId()] ){
             increaseCash(invest.getCost()/2);
             areas[invest.getId()] = false;
             invest.setOwner(null);
-            return;
+            return true ;
         }
-        System.out.println("You don't own here!");
-        return;
+        return false;
     }
 }

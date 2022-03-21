@@ -13,7 +13,6 @@ public abstract class Invest extends Field {
     public void setCost(double cost) {
         this.cost = cost;
     }
-
     public Player getOwner() {
         return this.owner;
     }
