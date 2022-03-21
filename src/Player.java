@@ -63,6 +63,10 @@ public class Player {
         position = newPosition;
     }
 
+    public Field getField(){
+        return BoardState.getInstance().getField(position);
+    }
+
     public boolean isIsInJail() {
         return this.isInJail;
     }
@@ -97,13 +101,20 @@ public class Player {
 
 
     public boolean buy(Invest invest) throws InvestOwnedByAnotherException, InvestOutOfCashException {
+        
         if(invest.getCost() <= cash){
-            decreaseCash(invest.getCost());
-            areas[invest.getId()] = true;
-            invest.setOwner(this);
-            return true;
+            if(invest.getOwner() == null){
+                decreaseCash(invest.getCost());
+                areas[invest.getId()] = true;
+                invest.setOwner(this);
+                return true;
+            }else{
+                throw new InvestOwnedByAnotherException("this place has been bought!");
+            }
+            
+        }else{
+            throw new InvestOutOfCashException("you can't afford to buy this place!");
         }
-        return false;
     }
     public boolean sell(Invest invest){
         if( areas[invest.getId()] ){
