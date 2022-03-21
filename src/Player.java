@@ -1,3 +1,7 @@
+import exceptions.InvestOutOfCashException;
+import exceptions.InvestOwnedByAnotherException;
+import exceptions.NotInvestException;
+
 import java.util.ArrayList;
 
 public class Player {
@@ -92,7 +96,7 @@ public class Player {
     }
 
 
-    public boolean buy(Invest invest){
+    public boolean buy(Invest invest) throws InvestOwnedByAnotherException, InvestOutOfCashException {
         if(invest.getCost() <= cash){
             decreaseCash(invest.getCost());
             areas[invest.getId()] = true;

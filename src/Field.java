@@ -1,5 +1,3 @@
-import Exceptions.NotInvestException;
-
 public abstract class Field {
     private int id;
     private double fine;

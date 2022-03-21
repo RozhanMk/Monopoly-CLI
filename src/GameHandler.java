@@ -1,3 +1,7 @@
+import exceptions.InvestOutOfCashException;
+import exceptions.InvestOwnedByAnotherException;
+import exceptions.NotInvestException;
+
 import java.util.Scanner;
 
 public class GameHandler {
@@ -33,7 +37,17 @@ public class GameHandler {
         while (!turnFinished){
             String input = scanner.next();
             if(input.equals("buy")){
-                
+                if(BoardState.getInstance().getField(player.getPosition()) instanceof Invest){
+                    try{
+                        player.buy( (Invest) BoardState.getInstance().getField(player.getPosition()));
+                    }catch (InvestOutOfCashException e){
+                        System.out.println("You don't have enough Money to buy this field");
+                    }catch (InvestOwnedByAnotherException e){
+                        System.out.println("This field is owned by another player");
+                    }
+                }else{
+                    System.out.println("This field is not buyable");
+                }
             }
         }
 
