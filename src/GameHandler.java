@@ -37,18 +37,48 @@ public class GameHandler {
         while (!turnFinished){
             String input = scanner.next();
             if(input.equals("buy")){
-                if(BoardState.getInstance().getField(player.getPosition()) instanceof Invest){
+                if(player.getField() instanceof Invest){
                     try{
-                        player.buy( (Invest) BoardState.getInstance().getField(player.getPosition()));
-                    }catch (InvestOutOfCashException e){
-                        System.out.println("You don't have enough Money to buy this field");
-                    }catch (InvestOwnedByAnotherException e){
-                        System.out.println("This field is owned by another player");
+                        player.buy( (Invest) player.getField());
+                    }catch (InvestOutOfCashException | InvestOwnedByAnotherException e){
+                        System.out.println(e.getMessage());
                     }
                 }else{
                     System.out.println("This field is not buyable");
                 }
             }
+            else if(input.contains("sell")){
+                String[] inputs = input.split(" ");
+                try{
+                    int position = Integer.parseInt(inputs[1]);
+                    if(player.getField(position) instanceof Invest){
+                        player.sell((Invest) player.getField(position));
+                    }else{
+                        System.out.println("This field is not sellable");
+                    }
+                }
+                catch (IndexOutOfBoundsException e){
+                    System.out.println("You didn't enter the position");
+                }
+            }
+            else if(input.equals("free")){
+                //todo
+            }
+            else if(input.equals("invest")){
+                //todo
+            }
+            else if(input.equals("fly")){
+                //todo
+            }
+            else if(input.equals("build")){
+                //todo
+            }
+            else if(input.equals("index")){
+                System.out.println(player.getPosition() + 1);
+            }else if(input.equals("property")){
+                System.out.println("Cash : " + player.getCash());
+            }
+
         }
 
     }
