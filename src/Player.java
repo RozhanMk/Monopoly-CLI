@@ -67,6 +67,10 @@ public class Player {
         return BoardState.getInstance().getField(position);
     }
 
+    public Field getField(int position){
+        return BoardState.getInstance().getField(position);
+    }
+
     public boolean isIsInJail() {
         return this.isInJail;
     }
