@@ -21,7 +21,5 @@ public abstract class Invest extends Field {
         this.owner = owner;
     }
 
-    public void buy(Player player){
-        player.buy(this);
-    }
+
 }
