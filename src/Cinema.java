@@ -3,7 +3,8 @@ public class Cinema extends Invest{
         super(id, colored , color);
         setCost(200);
     }
-    public void autoActs(Player player){
+    @Override
+    public void onFieldActions(Player player){
         if(!player.checkIsOwner(super.getId())){
             Player owner = super.getOwner();
             //paying fine
