@@ -3,4 +3,8 @@ public class Airport extends Field{
         super(id, colored);
         setFine(50);
     }
+    @Override
+    public void onFieldActions(Player player){
+        player.decreaseCash(getFine());
+    }
 }
