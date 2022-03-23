@@ -4,8 +4,8 @@ public class Road extends Field{
     }
 
     @Override
-    public void onFieldActions(Player player) {
-        super.onFieldActions(player);
+    public void onFieldActions(Game game,Player player) {
+        super.onFieldActions(game,player);
         player.decreaseCash(100);
     }
 }

@@ -3,7 +3,7 @@ public class Bank extends Field{
         super(id, colored);
     }
     @Override
-    public void onFieldActions(Player player){
+    public void onFieldActions(Game game, Player player){
         if(player.isHasInvestInBank()){
             player.increaseCash(player.getSaved()*2);
             player.setSaved(0);

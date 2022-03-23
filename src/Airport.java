@@ -4,7 +4,7 @@ public class Airport extends Field{
         setFine(50);
     }
     @Override
-    public void onFieldActions(Player player){
+    public void onFieldActions(Game game , Player player){
         player.decreaseCash(getFine());
     }
 }

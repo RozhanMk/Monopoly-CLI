@@ -4,8 +4,10 @@ public class Tax extends Field{
     }
 
     @Override
-    public void onFieldActions(Player player) {
-        super.onFieldActions(player);
-        player.decreaseCash((player.getCash()*10)/100);
+    public void onFieldActions(Game game, Player player) {
+        super.onFieldActions(game,player);
+        if(!player.isNoTax()){
+            player.decreaseCash((player.getCash()*10)/100);
+        }
     }
 }

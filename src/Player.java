@@ -21,6 +21,8 @@ public class Player {
     private int jailCount;
     private int dice;
     private boolean hasInvestInBank;
+    private boolean noTax;
+
 
     public Player(String name , int id){
         this.name = name;
@@ -31,6 +33,7 @@ public class Player {
         dice = 0;
         jailCount = 0;
         areas = new boolean[24];
+        noTax = false;
     }
 
     public int getPrevDice() {
@@ -120,6 +123,13 @@ public class Player {
     }
     public void setHasInvestInBank(boolean hasInvestInBank) {
         this.hasInvestInBank = hasInvestInBank;
+    }
+    public boolean isNoTax() {
+        return this.noTax;
+    }
+
+    public void setNoTax(boolean noTax) {
+        this.noTax = noTax;
     }
 
     public boolean buy(Invest invest) throws InvestOwnedByAnotherException, InvestOutOfCashException {

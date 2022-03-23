@@ -4,7 +4,7 @@ public class Cinema extends Invest{
         setCost(200);
     }
     @Override
-    public void onFieldActions(Player player){
+    public void onFieldActions(Game game, Player player){
         if(!player.checkIsOwner(super.getId())){
             Player owner = super.getOwner();
             //paying fine

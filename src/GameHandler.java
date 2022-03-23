@@ -33,7 +33,7 @@ public class GameHandler {
                     }else{
                         game.players.get(i).updatePosition();
                     }
-                    game.players.get(i).getField().onFieldActions(game.players.get(i));
+                    game.players.get(i).getField().onFieldActions(game, game.players.get(i));
                     playerTurn(game.players.get(i) , scanner);
                 }
             }

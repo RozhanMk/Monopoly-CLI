@@ -7,9 +7,9 @@ public class Prison extends Field{
     }
     public static List<Player> prisoners = new ArrayList<>();
     @Override
-    public void onFieldActions(Player player) {
-        super.onFieldActions(player);
-        if(player.getDice() != 6 || player.getPrevDice() != 6){
+    public void onFieldActions(Game game,Player player) {
+        super.onFieldActions(game,player);
+        if(player.getDice() == 6 && player.getPrevDice() == 6){
             prisoners.add(player);
             player.setIsInJail(true);
         }
