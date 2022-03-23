@@ -29,6 +29,7 @@ public class Cinema extends Invest{
                     setFine(100);
                 }
                 player.decreaseCash(getFine());
+                owner.increaseCash(getFine());
             }
     
         }
