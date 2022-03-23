@@ -24,14 +24,22 @@ public class GameHandler {
                     diceEntered = true;
                     game.players.get(i).setPrevDice(game.players.get(i).getDice());
                     game.players.get(i).setDice(diceNumber);
-                    game.players.get(i).updatePosition();
+                    // check if Player is in jail or not ; if player is in jail he/she only can have dice number 1 to get out of jail
+                    if(game.players.get(i).isIsInJail()){
+                        if(game.players.get(i).getDice() == 1){
+                            Prison.removePrisoner(game.players.get(i));
+                            game.players.get(i).updatePosition();
+                        }
+                    }else{
+                        game.players.get(i).updatePosition();
+                    }
                     game.players.get(i).getField().onFieldActions(game.players.get(i));
                     playerTurn(game.players.get(i) , scanner);
                 }
             }
         }
         scanner.close();
-        gameRound++;
+        roundActions();
         checkWin();
     }
     public void playerTurn(Player player , Scanner scanner){
@@ -68,7 +76,15 @@ public class GameHandler {
                 }
             }
             else if(input.equals("free")){
-                //todo
+                if(player.getField() instanceof Prison){
+                    if(player.free()){
+                        System.out.println("You bought your freedom =)");
+                    }else{
+                        System.out.println("You don't have enough cash (50$)");
+                    }
+                }else{
+                    System.out.println("You can't use this input on nonPrison houses");
+                }
             }
             else if(input.equals("invest")){
                 try{
@@ -118,6 +134,10 @@ public class GameHandler {
             }
         }
 
+    }
+    public void roundActions(){
+        gameRound++;
+        Prison.prisonCheck();
     }
     public void checkWin(){
         //todo

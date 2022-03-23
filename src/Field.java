@@ -40,5 +40,7 @@ public abstract class Field {
     public void onFieldActions(Player player){
 
     }
+    public void roundActions(){
 
+    }
 }

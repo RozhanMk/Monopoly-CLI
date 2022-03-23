@@ -138,6 +138,15 @@ public class Player {
             throw new InvestOutOfCashException("you can't afford to buy this place!");
         }
     }
+    public boolean free(){
+        if(this.getCash() >= 50){
+            this.decreaseCash(50);
+            this.isInJail = false;
+            Prison.removePrisoner(this);
+            return true;
+        }
+        return false;
+    }
     public boolean sell(Invest invest) throws InvestNotOwnedException{
         if( areas[invest.getId()] ){
             increaseCash(invest.getCost()/2);
