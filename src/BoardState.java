@@ -34,6 +34,9 @@ public class BoardState {
         }
         return boardState;
     }
+    public static Field getFieldStatic(int id){
+        return BoardState.getInstance().getField(id);
+    }
 
     public Field getField(int id){
         if(id >=0 && id<=23){

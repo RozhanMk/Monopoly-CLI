@@ -34,6 +34,8 @@ public abstract class Field {
     public void setFine( double fine ){
         this.fine = fine;
     }
-
+    public double getCost(){
+        return 0;
+    }
 
 }

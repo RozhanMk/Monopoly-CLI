@@ -1,7 +1,7 @@
-import exceptions.InvestOutOfCashException;
-import exceptions.InvestOwnedByAnotherException;
-import exceptions.NotInvestException;
+import exceptions.*;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
 
 public class GameHandler {
@@ -52,7 +52,11 @@ public class GameHandler {
                 try{
                     int position = Integer.parseInt(inputs[1]);
                     if(player.getField(position) instanceof Invest){
-                        player.sell((Invest) player.getField(position));
+                        try{
+                            player.sell((Invest) player.getField(position));
+                        }catch (InvestNotOwnedException e){
+                            System.out.println(e.getMessage());
+                        }
                     }else{
                         System.out.println("This field is not sellable");
                     }
@@ -65,10 +69,29 @@ public class GameHandler {
                 //todo
             }
             else if(input.equals("invest")){
-                //todo
+                try{
+                    player.invest();
+                }
+                catch (NotTypeException e){
+                    System.out.println(e.getMessage());
+                }
             }
-            else if(input.equals("fly")){
-                //todo
+            else if(input.contains("fly")){
+                String[] inputs = input.split(" ");
+                if(inputs.length < 2){
+                    System.out.println("You didn't enter the destination");
+                }else{
+                    if(player.getField() instanceof Airport){
+                        try{
+                            player.fly((Airport) player.getField() , Integer.parseInt(inputs[1]));
+                        }
+                        catch (SameAirportException | NotTypeException e){
+                            System.out.println(e.getMessage());
+                        }
+                    }else{
+                        System.out.println("You are not at airport");
+                    }
+                }
             }
             else if(input.equals("build")){
                 //todo
@@ -77,8 +100,20 @@ public class GameHandler {
                 System.out.println(player.getPosition() + 1);
             }else if(input.equals("property")){
                 System.out.println("Cash : " + player.getCash());
+                if(player.getProperties() == null){
+                    System.out.println("You don't own anything");
+                }else{
+                    System.out.println("Properties : " + player.getProperties());
+                }
+            }else if(input.equals("time")){
+                //todo
+            }else if(input.equals("rank")){
+                System.out.println("Your rank is : " + game.getRank(player));
+            }else if(input.equals("end")){
+                turnFinished = true;
+            }else {
+                System.out.println("Wrong input please try again");
             }
-
         }
 
     }

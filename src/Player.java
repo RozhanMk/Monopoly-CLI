@@ -6,6 +6,8 @@ import exceptions.NotInvestException;
 import exceptions.SameAirportException;
 
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Objects;
 
 public class Player {
     private String name;
@@ -162,14 +164,27 @@ public class Player {
             throw new NotTypeException("you're not in bank!");
         }
     }
-    public void property(){
-        System.out.println(cash);
-        System.out.print("[ ");
-        for (int i = 0; i < 24 ; i++) {
+    // return a list of properties
+    public ArrayList<Integer> getProperties(){
+        boolean withoutProperty = true;
+        ArrayList<Integer> temp = new ArrayList<Integer>();
+        for(int i = 0 ; i < 24 ; i++){
             if(areas[i]){
-                System.out.printf("%d ",i+1);
+                temp.add(i+1);
+                withoutProperty = false;
             }
         }
-        System.out.print("]");
+        if(withoutProperty){
+            return null;
+        }
+        return temp;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Player player = (Player) o;
+        return id == player.id && Double.compare(player.cash, cash) == 0 && Double.compare(player.saved, saved) == 0 && position == player.position && isInJail == player.isInJail && jailCount == player.jailCount && dice == player.dice && hasInvestInBank == player.hasInvestInBank && Objects.equals(name, player.name) && Arrays.equals(areas, player.areas);
     }
 }

@@ -1,4 +1,5 @@
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.Scanner;
 
@@ -32,5 +33,32 @@ public class Game {
         }
         GameHandler gameHandler = new GameHandler(this);
         gameHandler.startRound();
+    }
+    public int getRank(Player player){
+        List<Player> temp = new ArrayList<>(this.getPlayers());
+        for(int i = 0 ; i < temp.size() - 1 ; i++){
+            for(int j = i ; j < temp.size() ; j++){
+                if(getfortune(temp.get(j))  < getfortune(temp.get(i))){
+                    Collections.swap(temp , j , i);
+                }
+            }
+        }
+        for (int i = 0 ; i < temp.size() ; i++){
+            if(temp.get(i).equals(player)){
+                return i;
+            }
+        }
+        return -1;
+    }
+    public double getfortune(Player player) {
+        double fortune = 0;
+        for(int i = 0 ; i < player.getProperties().size() ; i++){
+            fortune += BoardState.getFieldStatic(player.getProperties().get(i) - 1).getCost();
+        }
+        fortune += player.getCash();
+        return fortune;
+    }
+    public List<Player> getPlayers() {
+        return players;
     }
 }
