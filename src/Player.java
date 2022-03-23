@@ -15,6 +15,7 @@ public class Player {
     private double cash;
     private double saved;
     private int position; // from 0 to 23
+    private int prevDice;
     private boolean[] areas; // from 0 to 23. All the areas
     private boolean isInJail;
     private int jailCount;
@@ -32,7 +33,12 @@ public class Player {
         areas = new boolean[24];
     }
 
-
+    public int getPrevDice() {
+        return prevDice;
+    }
+    public void setPrevDice(int prevDice) {
+        this.prevDice = prevDice;
+    }
     public String getName() {
         return this.name;
     }

@@ -37,5 +37,8 @@ public abstract class Field {
     public double getCost(){
         return 0;
     }
+    public void onFieldActions(Player player){
+
+    }
 
 }

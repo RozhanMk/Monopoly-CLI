@@ -22,8 +22,10 @@ public class GameHandler {
                     System.out.println("Wrong dice number please try again");
                 }else{
                     diceEntered = true;
+                    game.players.get(i).setPrevDice(game.players.get(i).getDice());
                     game.players.get(i).setDice(diceNumber);
                     game.players.get(i).updatePosition();
+                    game.players.get(i).getField().onFieldActions(game.players.get(i));
                     playerTurn(game.players.get(i) , scanner);
                 }
             }
