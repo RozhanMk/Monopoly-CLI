@@ -62,6 +62,10 @@ public class Player {
         cash -= cost;
     }
 
+    public void setSaved(double saved) {
+        this.saved = saved;
+    }
+
     public boolean checkIsOwner(int investId){
         return areas[investId];
     }
@@ -114,6 +118,9 @@ public class Player {
     public boolean isHasInvestInBank() {
         return this.hasInvestInBank;
     }
+    public void setHasInvestInBank(boolean hasInvestInBank) {
+        this.hasInvestInBank = hasInvestInBank;
+    }
 
     public boolean buy(Invest invest) throws InvestOwnedByAnotherException, InvestOutOfCashException {
         
@@ -156,11 +163,7 @@ public class Player {
     }
     public boolean invest() throws NotTypeException{
         if(position == 20){
-            if(hasInvestInBank){
-                cash += (2*saved);
-                saved = 0;
-                hasInvestInBank = false;
-            }else{
+            if(!hasInvestInBank){
                 saved = cash/2;
                 cash -= (cash/2);
                 hasInvestInBank = true;
