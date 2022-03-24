@@ -113,7 +113,16 @@ public class GameHandler {
                 }
             }
             else if(input.equals("build")){
-                //todo
+                if(player.getField() instanceof Empty){
+                    try{
+                        player.build((Empty)player.getField());
+                    }catch(InvestNotOwnedException| BuildingsNotEqual| MaxBuildingsReached| InvestOutOfCashException e){
+                        System.out.println(e.getMessage());
+                    }
+                }
+                else{
+                    System.out.println("You cannot build here!");
+                }
             }
             else if(input.equals("index")){
                 System.out.println(player.getPosition() + 1);
