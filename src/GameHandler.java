@@ -77,10 +77,11 @@ public class GameHandler {
             }
             else if(input.equals("free")){
                 if(player.getField() instanceof Prison){
-                    if(player.free()){
+                    try {
+                        player.free();
                         System.out.println("You bought your freedom =)");
-                    }else{
-                        System.out.println("You don't have enough cash (50$)");
+                    } catch (InvestOutOfCashException e) {
+                        System.out.println(e.getMessage());
                     }
                 }else{
                     System.out.println("You can't use this input on nonPrison houses");

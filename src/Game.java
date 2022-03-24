@@ -4,7 +4,7 @@ import java.util.List;
 import java.util.Scanner;
 
 public class Game {
-    public static List<Player> players = new ArrayList<>();
+    public List<Player> players = new ArrayList<>();
     private Integer time;
 //    private int
     public void setUpGame(){

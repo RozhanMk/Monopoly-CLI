@@ -147,14 +147,16 @@ public class Player {
             throw new InvestOutOfCashException("you can't afford to buy this place!");
         }
     }
-    public boolean free(){
-        if(this.getCash() >= 50){
-            this.decreaseCash(50);
-            this.isInJail = false;
+    public boolean free() throws InvestOutOfCashException{
+        if(cash >= 50){
+            decreaseCash(50);
+            isInJail = false;
             Prison.removePrisoner(this);
             return true;
+        }else{
+            throw new InvestOutOfCashException("You don't have enough money!");
         }
-        return false;
+        
     }
     public boolean sell(Invest invest) throws InvestNotOwnedException{
         if( areas[invest.getId()] ){
@@ -183,7 +185,7 @@ public class Player {
         if(position == 20){
             if(!hasInvestInBank){
                 saved = cash/2;
-                cash -= (cash/2);
+                decreaseCash(cash/2);
                 hasInvestInBank = true;
             }
             return true;
@@ -206,10 +208,10 @@ public class Player {
         }
         return temp;
     }
-    //
+
     public void build(Empty empty) throws InvestNotOwnedException, BuildingsNotEqual, MaxBuildingsReached, InvestOutOfCashException {
         if(empty.getOwner().equals(this)){
-            // check
+ 
             if(empty.getLevel() == 5){
                 throw new MaxBuildingsReached("You can't build any more buildings");
             }
@@ -222,7 +224,16 @@ public class Player {
                     maxBuildings = buildings.get(i).getLevel();
                 }
             }
-            if(empty.getLevel() <= maxBuildings){
+            boolean is_equal = true;
+            outer: for(int i = 0 ; i < buildings.size() ; i++){
+                for (int j = i+1; j < buildings.size(); j++) {
+                    if(buildings.get(i).getLevel() != buildings.get(j).getLevel()){
+                        is_equal = false;
+                        break outer;
+                    }
+                }
+            }
+            if(empty.getLevel() < maxBuildings || is_equal){
                 if(empty.getLevel() == 4){
                     if(cash >= 100){
                         decreaseCash(100);
@@ -231,7 +242,7 @@ public class Player {
                         empty.setHotel(true);
                         Empty.setNumberOfBuildings(Empty.getNumberOfBuildings() + 4);
                     }else{
-                        throw new InvestOutOfCashException("You don't have enough money to build here");
+                        throw new InvestOutOfCashException("You don't have enough money to build here!");
                     }
                 }else{
                     if(cash >= 150){
@@ -240,14 +251,14 @@ public class Player {
                         empty.setFine(empty.getLevel()*100 + 50);
                         Empty.setNumberOfBuildings(Empty.getNumberOfBuildings()-1);
                     }else{
-                        throw new InvestOutOfCashException("You don't have enough money to build here");
+                        throw new InvestOutOfCashException("You don't have enough money to build here!");
                     }
                 }
             }else{
-                throw new BuildingsNotEqual("Your buildings are not equal");
+                throw new BuildingsNotEqual("Your buildings are not equal!");
             }
         }else{
-            throw new InvestNotOwnedException("You don't own this empty field");
+            throw new InvestNotOwnedException("You don't own this empty field!");
         }
 
     }

@@ -22,7 +22,7 @@ public class RandomField extends Field{
             player.setPosition(player.getPosition()+3);
         }
         if(number == 5){
-            player.free();
+            Prison.removePrisoner(player);
         }
         if(number == 6){
             player.setNoTax(true);
