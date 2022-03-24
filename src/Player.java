@@ -1,12 +1,8 @@
-import exceptions.InvestNotOwnedException;
-import exceptions.InvestOutOfCashException;
-import exceptions.InvestOwnedByAnotherException;
-import exceptions.NotTypeException;
-import exceptions.NotInvestException;
-import exceptions.SameAirportException;
+import exceptions.*;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 import java.util.Objects;
 
 public class Player {
@@ -22,7 +18,7 @@ public class Player {
     private int dice;
     private boolean hasInvestInBank;
     private boolean noTax;
-
+    private List<Empty> buildings = new ArrayList<>();
 
     public Player(String name , int id){
         this.name = name;
@@ -139,6 +135,9 @@ public class Player {
                 decreaseCash(invest.getCost());
                 areas[invest.getId()] = true;
                 invest.setOwner(this);
+                if(invest instanceof Empty){
+                    buildings.add((Empty) invest);
+                }
                 return true;
             }else{
                 throw new InvestOwnedByAnotherException("this place has been bought!");
@@ -207,7 +206,51 @@ public class Player {
         }
         return temp;
     }
+    //
+    public void build(Empty empty) throws InvestNotOwnedException, BuildingsNotEqual, MaxBuildingsReached, InvestOutOfCashException {
+        if(empty.getOwner().equals(this)){
+            // check
+            if(empty.getLevel() == 5){
+                throw new MaxBuildingsReached("You can't build any more buildings");
+            }
+            if(Empty.getNumberOfBuildings() == 0 && empty.getLevel() != 4){
+                throw new MaxBuildingsReached("Board have reached its maximum buildings");
+            }
+            int maxBuildings = 0;
+            for(int i = 0 ; i < buildings.size() ; i++){
+                if(buildings.get(i).getLevel() > maxBuildings){
+                    maxBuildings = buildings.get(i).getLevel();
+                }
+            }
+            if(empty.getLevel() <= maxBuildings){
+                if(empty.getLevel() == 4){
+                    if(cash >= 100){
+                        decreaseCash(100);
+                        empty.setLevel(empty.getLevel() + 1);
+                        empty.setFine(600);
+                        empty.setHotel(true);
+                        Empty.setNumberOfBuildings(Empty.getNumberOfBuildings() + 4);
+                    }else{
+                        throw new InvestOutOfCashException("You don't have enough money to build here");
+                    }
+                }else{
+                    if(cash >= 150){
+                        decreaseCash(150);
+                        empty.setLevel(empty.getLevel() + 1);
+                        empty.setFine(empty.getLevel()*100 + 50);
+                        Empty.setNumberOfBuildings(Empty.getNumberOfBuildings()-1);
+                    }else{
+                        throw new InvestOutOfCashException("You don't have enough money to build here");
+                    }
+                }
+            }else{
+                throw new BuildingsNotEqual("Your buildings are not equal");
+            }
+        }else{
+            throw new InvestNotOwnedException("You don't own this empty field");
+        }
 
+    }
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;

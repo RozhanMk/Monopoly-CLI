@@ -4,8 +4,9 @@ import java.util.List;
 import java.util.Scanner;
 
 public class Game {
-    public List<Player> players = new ArrayList<>();
+    public static List<Player> players = new ArrayList<>();
     private Integer time;
+//    private int
     public void setUpGame(){
         Scanner scanner = new Scanner(System.in);
         boolean gameStarted = false;
@@ -23,6 +24,7 @@ public class Game {
                 if(players.size() >=2 && players.size() <=4){
                     scanner.close();
                     gameStarted = true;
+                    Empty.setNumberOfBuildings(players.size() * 5);
                 }else{
                     System.out.println("no game created");
                 }
@@ -58,7 +60,7 @@ public class Game {
         fortune += player.getCash();
         return fortune;
     }
-    public List<Player> getPlayers() {
+    public  List<Player> getPlayers() {
         return players;
     }
 }
