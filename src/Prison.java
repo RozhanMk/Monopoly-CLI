@@ -9,10 +9,6 @@ public class Prison extends Field{
     @Override
     public void onFieldActions(Game game,Player player) {
         super.onFieldActions(game,player);
-        if(player.getDice() == 6 && player.getPrevDice() == 6){
-            prisoners.add(player);
-            player.setIsInJail(true);
-        }
     }
     public static void removePrisoner(Player p){
         prisoners.remove(p);

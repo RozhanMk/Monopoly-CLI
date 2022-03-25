@@ -24,6 +24,23 @@ public class GameHandler {
                     diceEntered = true;
                     game.players.get(i).setPrevDice(game.players.get(i).getDice());
                     game.players.get(i).setDice(diceNumber);
+                    //here player can enter dice twice
+                    if(game.players.get(i).getDice() == 6){
+                        while (!diceEntered){
+                            diceNumber = scanner.nextInt();
+                            if(diceNumber>6 || diceNumber<1){
+                                System.out.println("Wrong dice number please try again");
+                            }
+                        }
+                        game.players.get(i).setPrevDice(game.players.get(i).getDice());
+                        game.players.get(i).setDice(diceNumber);
+                    }
+                    //check if player go to prison or not
+                    if(game.players.get(i).getDice() == 6 && game.players.get(i).getPrevDice() == 6){
+                        Prison.prisoners.add(game.players.get(i));
+                        game.players.get(i).setIsInJail(true);
+                        game.players.get(i).setPosition(12);
+                    }
                     // check if Player is in jail or not ; if player is in jail he/she only can have dice number 1 to get out of jail
                     if(game.players.get(i).isIsInJail()){
                         if(game.players.get(i).getDice() == 1){
