@@ -26,10 +26,13 @@ public class GameHandler {
                     game.players.get(i).setDice(diceNumber);
                     //here player can enter dice twice
                     if(game.players.get(i).getDice() == 6){
+                        diceEntered = false;
                         while (!diceEntered){
                             diceNumber = scanner.nextInt();
                             if(diceNumber>6 || diceNumber<1){
                                 System.out.println("Wrong dice number please try again");
+                            }else{
+                                diceEntered = true;
                             }
                         }
                         game.players.get(i).setPrevDice(game.players.get(i).getDice());
