@@ -211,7 +211,26 @@ public class Player {
         }
         return temp;
     }
-    //public double getPropertiesNum
+
+    public boolean isBankrupt(){
+        if(cash>=0){
+            return false;
+        }
+        double res = 0;
+        for (int i = 0; i < getProperties().size(); i++) {
+            if(getField(getProperties().get(i)) instanceof Cinema){
+                res+= (getField(getProperties().get(i)).getCost())/2;
+            }else if(getField(getProperties().get(i)) instanceof Empty){
+               if(((Empty)getField(getProperties().get(i))).getLevel() == 5){
+                    res+=(((Empty)getField(getProperties().get(i))).getLevel()*150+100-50)/2;
+               }else{
+                    res+=(((Empty)getField(getProperties().get(i))).getLevel()*150+100)/2;
+               }
+            }
+        }
+        return res<(-cash);
+    }
+
     public void build(Empty empty) throws InvestNotOwnedException, BuildingsNotEqual, MaxBuildingsReached, InvestOutOfCashException, NegativeCashException {
         if(empty.getOwner().equals(this)){
  
