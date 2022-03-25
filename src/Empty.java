@@ -1,3 +1,5 @@
+import exceptions.NegativeCashException;
+
 public class Empty extends Invest{
     private int level;
     private boolean isHotel;
@@ -31,11 +33,7 @@ public class Empty extends Invest{
     }
 
     @Override
-    public void onFieldActions(Game game, Player player) {
+    public void onFieldActions(Game game, Player player) throws NegativeCashException {
         super.onFieldActions(game, player);
-        if(!getOwner().equals(player)){
-            player.decreaseCash(getFine());
-        }
     }
-
 }

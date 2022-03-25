@@ -57,8 +57,11 @@ public class Player {
         cash += cost;
     }
 
-    public void decreaseCash(double cost) {
+    public void decreaseCash(double cost) throws NegativeCashException{
         cash -= cost;
+        if(cash<0){
+            throw new NegativeCashException("negative cash");
+        }
     }
 
     public void setSaved(double saved) {
@@ -128,7 +131,7 @@ public class Player {
         this.noTax = noTax;
     }
 
-    public boolean buy(Invest invest) throws InvestOwnedByAnotherException, InvestOutOfCashException {
+    public boolean buy(Invest invest) throws InvestOwnedByAnotherException, InvestOutOfCashException, NegativeCashException {
         
         if(invest.getCost() <= cash){
             if(invest.getOwner() == null){
@@ -147,7 +150,7 @@ public class Player {
             throw new InvestOutOfCashException("you can't afford to buy this place!");
         }
     }
-    public boolean free() throws InvestOutOfCashException{
+    public boolean free() throws InvestOutOfCashException, NegativeCashException{
         if(cash >= 50){
             decreaseCash(50);
             isInJail = false;
@@ -181,7 +184,7 @@ public class Player {
             throw new SameAirportException("enter another airport!");
         }
     }
-    public boolean invest() throws NotTypeException{
+    public boolean invest() throws NotTypeException, NegativeCashException{
         if(position == 20){
             if(!hasInvestInBank){
                 saved = cash/2;
@@ -208,8 +211,8 @@ public class Player {
         }
         return temp;
     }
-
-    public void build(Empty empty) throws InvestNotOwnedException, BuildingsNotEqual, MaxBuildingsReached, InvestOutOfCashException {
+    //public double getPropertiesNum
+    public void build(Empty empty) throws InvestNotOwnedException, BuildingsNotEqual, MaxBuildingsReached, InvestOutOfCashException, NegativeCashException {
         if(empty.getOwner().equals(this)){
  
             if(empty.getLevel() == 5){

@@ -10,7 +10,7 @@ public class GameHandler {
     public GameHandler(Game game) {
         this.game = game;
     }
-    public void startRound(){
+    public void startRound() throws NegativeCashException{
         System.out.println("Round " + gameRound);
         Scanner scanner = new Scanner(System.in);
         for(int i = 0 ; i < game.players.size() ; i++){
@@ -62,7 +62,7 @@ public class GameHandler {
         roundActions();
         checkWin();
     }
-    public void playerTurn(Player player , Scanner scanner){
+    public void playerTurn(Player player , Scanner scanner) throws NegativeCashException{
         boolean turnFinished = false;
         while (!turnFinished){
             String input = scanner.next();
@@ -165,11 +165,11 @@ public class GameHandler {
         }
 
     }
-    public void roundActions(){
+    public void roundActions() throws NegativeCashException{
         gameRound++;
         Prison.prisonCheck();
     }
-    public void checkWin(){
+    public void checkWin() throws NegativeCashException{
         //todo
         gameRound++;
         startRound();

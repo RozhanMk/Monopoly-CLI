@@ -1,3 +1,5 @@
+import exceptions.NegativeCashException;
+
 public abstract class Field {
     private int id;
     private double fine;
@@ -37,8 +39,7 @@ public abstract class Field {
     public double getCost(){
         return 0;
     }
-    public void onFieldActions(Game game , Player player){
-
+    public void onFieldActions(Game game , Player player) throws NegativeCashException{
     }
     public void roundActions(){
 

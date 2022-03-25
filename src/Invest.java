@@ -1,3 +1,5 @@
+import exceptions.NegativeCashException;
+
 public abstract class Invest extends Field {
     private Player owner;
     private double cost;
@@ -21,6 +23,11 @@ public abstract class Invest extends Field {
     public void setOwner(Player owner) {
         this.owner = owner;
     }
-
+    public void onFieldActions(Game game , Player player) throws NegativeCashException{
+        if(!getOwner().equals(player) && getOwner()!=null){
+            player.decreaseCash(getFine());
+            getOwner().increaseCash(getFine());
+        }
+    }
 
 }

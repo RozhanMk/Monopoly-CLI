@@ -3,11 +3,13 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Scanner;
 
+import exceptions.NegativeCashException;
+
 public class Game {
     public List<Player> players = new ArrayList<>();
     private Integer time;
 //    private int
-    public void setUpGame(){
+    public void setUpGame() throws NegativeCashException{
         Scanner scanner = new Scanner(System.in);
         boolean gameStarted = false;
         int id = 0;

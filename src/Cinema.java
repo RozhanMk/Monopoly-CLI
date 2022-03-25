@@ -1,10 +1,14 @@
+import exceptions.NegativeCashException;
+
 public class Cinema extends Invest{
     public Cinema(int id, boolean colored , ColorType color) {
         super(id, colored , color);
         setCost(200);
     }
     @Override
-    public void onFieldActions(Game game, Player player){
+    public void onFieldActions(Game game, Player player) throws NegativeCashException{
+        super.onFieldActions(game, player);
+        
         if(!player.checkIsOwner(super.getId())){
             Player owner = super.getOwner();
             //paying fine
@@ -28,8 +32,6 @@ public class Cinema extends Invest{
                 if(countCinema == 3){
                     setFine(100);
                 }
-                player.decreaseCash(getFine());
-                owner.increaseCash(getFine());
             }
     
         }

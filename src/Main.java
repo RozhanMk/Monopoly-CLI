@@ -1,7 +1,9 @@
 import java.util.Scanner;
 
+import exceptions.NegativeCashException;
+
 public class Main {
-    public static void main(String[] args) {
+    public static void main(String[] args) throws NegativeCashException {
         Scanner scanner = new Scanner(System.in);
         boolean gameCreated = false;
         // Waiting for user to enter create_game

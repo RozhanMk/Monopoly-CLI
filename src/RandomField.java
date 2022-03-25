@@ -1,3 +1,4 @@
+import exceptions.NegativeCashException;
 
 public class RandomField extends Field{
     public RandomField(int id, boolean colored) {
@@ -7,7 +8,7 @@ public class RandomField extends Field{
         return (int) ((Math.random() * 6) + 1); //random number from 1 to 7
     }
     @Override
-    public void onFieldActions(Game game , Player player){
+    public void onFieldActions(Game game , Player player) throws NegativeCashException{
         int number = getRandomNumber();
         if(number == 1){
             player.increaseCash(200);

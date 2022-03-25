@@ -5,7 +5,6 @@ public class Reward extends Field{
 
     @Override
     public void onFieldActions(Game game,Player player) {
-        super.onFieldActions(game,player);
         player.increaseCash(200);
     }
 }
