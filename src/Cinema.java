@@ -7,8 +7,6 @@ public class Cinema extends Invest{
     }
     @Override
     public void onFieldActions(Game game, Player player) throws NegativeCashException{
-        super.onFieldActions(game, player);
-        
         if(!player.checkIsOwner(super.getId())){
             Player owner = super.getOwner();
             //paying fine
@@ -32,8 +30,8 @@ public class Cinema extends Invest{
                 if(countCinema == 3){
                     setFine(100);
                 }
+                super.onFieldActions(game, player);
             }
-    
         }
     }
 }
