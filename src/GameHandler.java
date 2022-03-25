@@ -64,7 +64,22 @@ public class GameHandler {
     }
     public void playerTurn(Player player , Scanner scanner) throws NegativeCashException{
         boolean turnFinished = false;
+        boolean negativeCash = false;
+        if(player.isBankrupt()){
+            if(game.players.size() != 1) {
+                System.out.println("Player + " + player.getName() + "You have lost the game");
+                game.players.remove(player);
+            }
+            turnFinished = true;
+        }
+        if(!player.isBankrupt() && player.getCash() < 0){
+            System.out.println("You cash is negative ; you have to sell your items");
+            negativeCash = true;
+        }
         while (!turnFinished){
+            if(negativeCash && player.getCash()>0){
+                negativeCash = false;
+            }
             String input = scanner.next();
             if(input.equals("buy")){
                 if(player.getField() instanceof Invest){
@@ -158,7 +173,11 @@ public class GameHandler {
             }else if(input.equals("rank")){
                 System.out.println("Your rank is : " + game.getRank(player));
             }else if(input.equals("end")){
-                turnFinished = true;
+                if(negativeCash){
+                    System.out.println("You can't end your turn unless you sell your items ( Your debt is " + Math.abs(player.getCash()) + " )"  );
+                }else{
+                    turnFinished = true;
+                }
             }else {
                 System.out.println("Wrong input please try again");
             }
@@ -170,8 +189,13 @@ public class GameHandler {
         Prison.prisonCheck();
     }
     public void checkWin() throws NegativeCashException{
-        //todo
-        gameRound++;
-        startRound();
+        if(game.players.size() == 1){
+            System.out.println(game.players.get(0).getName() + " you have won the game");
+            System.out.println("Game has finished");
+            System.exit(0);
+        }else{
+            gameRound++;
+            startRound();
+        }
     }
 }
