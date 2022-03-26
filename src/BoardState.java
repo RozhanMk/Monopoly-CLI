@@ -2,6 +2,7 @@ public class BoardState {
     private static BoardState boardState = null;
     private Field[] fields = new Field[24];
     private BoardState(){
+        //Initialization the position and color of houses
         fields[0] = new Parking(0 , false);
         fields[1] = new Empty(1 , true , ColorType.green);
         fields[2] = new Airport(2 , false);

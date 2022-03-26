@@ -34,9 +34,11 @@ public abstract class Invest extends Field {
                     }
                 }
                 if(sameColor == 3){
+                    System.out.printf("Rent price: %5f\n",getFine()*2);
                     player.decreaseCash(getFine()*2);
                     getOwner().increaseCash(getFine()*2);
                 }else{
+                    System.out.printf("Rent price: %5f\n",getFine());
                     player.decreaseCash(getFine());
                     getOwner().increaseCash(getFine());
                 }

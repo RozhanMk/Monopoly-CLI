@@ -9,14 +9,14 @@ public class Player {
     private String name;
     private int id; // 1 2 3 ...
     private double cash;
-    private double saved;
+    private double saved; //invested money in bank
     private int position; // from 0 to 23
     private int prevDice;
     private boolean[] areas; // from 0 to 23. All the areas
     private boolean isInJail;
     private int dice;
     private boolean hasInvestInBank;
-    private boolean noTax;
+    private boolean noTax; //implement the 6th luck card
     private List<Empty> buildings = new ArrayList<>();
 
     public Player(String name , int id){
@@ -174,6 +174,8 @@ public class Player {
             throw new SameAirportException("enter another airport!");
         }
     }
+
+    //invest half of cash in the bank
     public boolean invest() throws NotTypeException, NegativeCashException{
         if(position == 20){
             if(!hasInvestInBank){
@@ -186,6 +188,7 @@ public class Player {
             throw new NotTypeException("you're not in bank!");
         }
     }
+
     // return a list of properties
     public ArrayList<Integer> getProperties(){
         ArrayList<Integer> temp = new ArrayList<Integer>();
@@ -240,8 +243,10 @@ public class Player {
                     }
                 }
             }
+            //check if buildings are equal
             if(empty.getLevel() < maxBuildings || is_equal){
                 if(empty.getLevel() == 4){
+                    //build Hotel
                     if(cash >= 100){
                         decreaseCash(100);
                         empty.setLevel(empty.getLevel() + 1);
@@ -252,6 +257,7 @@ public class Player {
                         throw new InvestOutOfCashException("You don't have enough money to build here!");
                     }
                 }else{
+                    //build building in empty houses
                     if(cash >= 150){
                         decreaseCash(150);
                         empty.setLevel(empty.getLevel() + 1);

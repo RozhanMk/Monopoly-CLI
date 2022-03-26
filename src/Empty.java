@@ -30,7 +30,7 @@ public class Empty extends Invest{
 
     public Empty(int id, boolean colored , ColorType color) {
         super(id, colored , color);
-        setCost(100);
+        setCost(100); //cost and fine of empty fields
         setFine(50);
     }
 

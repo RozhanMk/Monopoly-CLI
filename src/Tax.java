@@ -10,6 +10,7 @@ public class Tax extends Field{
         if(!player.isNoTax()){
             player.decreaseCash((player.getCash()*10)/100);
         }else{
+            //implementing the 6th luck card
             player.setNoTax(false);
         }
     }
