@@ -88,6 +88,7 @@ public class GameHandler {
         checkWin(scanner);
     }
     public void playerTurn(Player player , Scanner scanner){
+        ////check if player lost the game or not
         boolean turnFinished = false;
         boolean negativeCash = false;
         boolean builded = false;
@@ -102,8 +103,9 @@ public class GameHandler {
             System.out.println("You cash is negative ; you have to sell your items");
             negativeCash = true;
         }
+        ////
         while (!turnFinished){
-            //checks if user has built a house or not
+            //checks if player has built a house or not
             if(negativeCash && player.getCash()>0){
                 negativeCash = false;
             }

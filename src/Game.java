@@ -8,7 +8,7 @@ import exceptions.NegativeCashException;
 public class Game {
     public List<Player> players = new ArrayList<>();
     private Integer time;
-//    private int
+
     public void setUpGame( Scanner scanner) throws NegativeCashException{
         boolean gameStarted = false;
         int id = 0;
@@ -31,6 +31,7 @@ public class Game {
                     System.out.println("no game created");
                     System.out.println("The total count of your players is " + players.size());
                 }
+            //delete the player
             }else if(input.contains("delete")){
                 try{
                     String player_name = input.split(" ")[1];
@@ -40,6 +41,7 @@ public class Game {
                     System.out.println("Your input is wrong");
                 }
             } else{
+                //adding players in here
                 players.add(new Player(input , id));
                 id++;
             }
