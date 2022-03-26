@@ -11,24 +11,31 @@ public class RandomField extends Field{
     public void onFieldActions(Game game , Player player) throws NegativeCashException{
         int number = getRandomNumber();
         if(number == 1){
+            System.out.println("Get 200$ from the bank");
             player.increaseCash(200);
         }
         if(number == 2){
+            System.out.println("Go to the prison");
             Prison.prisoners.add(player);
         }
         if(number == 3){
+            System.out.println("Give 10 percent of your money to the bank");
             player.decreaseCash( (1/10)*player.getCash() );
         }
         if(number == 4){
+            System.out.println("Go 3 houses further");
             player.setPosition(player.getPosition()+3);
         }
         if(number == 5){
+            System.out.println("You are free");
             Prison.removePrisoner(player);
         }
         if(number == 6){
+            System.out.println("You don't need to pay taxes for once");
             player.setNoTax(true);
         }
         if(number == 7){
+            System.out.println("Give 10$ to each player");
             int playerIndex = player.getId();
             for (int i = 0; i < game.getPlayers().size(); i++) {
                 if( i != playerIndex ){

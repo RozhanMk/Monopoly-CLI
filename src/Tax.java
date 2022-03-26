@@ -9,6 +9,8 @@ public class Tax extends Field{
     public void onFieldActions(Game game, Player player) throws NegativeCashException {
         if(!player.isNoTax()){
             player.decreaseCash((player.getCash()*10)/100);
+        }else{
+            player.setNoTax(false);
         }
     }
 }
