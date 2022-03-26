@@ -81,6 +81,9 @@ public class GameHandler {
                 }
             }
         }
+        if(gameRound == 1){
+            game.turnByDice();
+        }
         roundActions();
         checkWin(scanner);
     }

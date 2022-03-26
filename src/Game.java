@@ -74,6 +74,15 @@ public class Game {
         fortune += player.getCash();
         return fortune;
     }
+    public void turnByDice(){
+        for (int i = 0 ; i < players.size() - 1 ; i++){
+            for (int j = 0 ; j < players.size() ; j++){
+                if(players.get(j).getDice() < players.get(i).getDice()){
+                    Collections.swap(players , i , j);
+                }
+            }
+        }
+    }
     public  List<Player> getPlayers() {
         return players;
     }
