@@ -198,12 +198,10 @@ public class Player {
     }
     // return a list of properties
     public ArrayList<Integer> getProperties(){
-        boolean withoutProperty = true;
         ArrayList<Integer> temp = new ArrayList<Integer>();
         for(int i = 0 ; i < 24 ; i++){
             if(areas[i]){
                 temp.add(i+1);
-                withoutProperty = false;
             }
         }
         return temp;

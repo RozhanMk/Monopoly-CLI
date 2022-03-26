@@ -54,14 +54,14 @@ public class Game {
         List<Player> temp = new ArrayList<>(this.getPlayers());
         for(int i = 0 ; i < temp.size() - 1 ; i++){
             for(int j = i ; j < temp.size() ; j++){
-                if(getfortune(temp.get(j))  < getfortune(temp.get(i))){
+                if(getfortune(temp.get(j))  > getfortune(temp.get(i))){
                     Collections.swap(temp , j , i);
                 }
             }
         }
         for (int i = 0 ; i < temp.size() ; i++){
             if(temp.get(i).equals(player)){
-                return i;
+                return i + 1;
             }
         }
         return -1;
