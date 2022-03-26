@@ -30,11 +30,12 @@ public class Empty extends Invest{
 
     public Empty(int id, boolean colored , ColorType color) {
         super(id, colored , color);
+        setCost(100);
+        setFine(50);
     }
 
     @Override
     public void onFieldActions(Game game, Player player) throws NegativeCashException {
         super.onFieldActions(game, player);
-        setCost(100);
     }
 }
