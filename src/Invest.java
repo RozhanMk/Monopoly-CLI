@@ -24,23 +24,26 @@ public abstract class Invest extends Field {
         this.owner = owner;
     }
     public void onFieldActions(Game game , Player player) throws NegativeCashException{
-        if(!getOwner().equals(player) && getOwner()!=null){
-            //determine if the owner has properties with same color
-            int sameColor = 0;
-            for (int i = 0; i < player.getProperties().size(); i++) {
-                if(getColor().equals(player.getField(player.getProperties().get(i)).getColor())){
-                    sameColor++;
+        if(getOwner()!=null){
+            if(!getOwner().equals(player)){
+                //determine if the owner has properties with same color
+                int sameColor = 0;
+                for (int i = 0; i < player.getProperties().size(); i++) {
+                    if(getColor().equals(player.getField(player.getProperties().get(i)).getColor())){
+                        sameColor++;
+                    }
                 }
+                if(sameColor == 3){
+                    player.decreaseCash(getFine()*2);
+                    getOwner().increaseCash(getFine()*2);
+                }else{
+                    player.decreaseCash(getFine());
+                    getOwner().increaseCash(getFine());
+                }
+                
             }
-            if(sameColor == 3){
-                player.decreaseCash(getFine()*2);
-                getOwner().increaseCash(getFine()*2);
-            }else{
-                player.decreaseCash(getFine());
-                getOwner().increaseCash(getFine());
-            }
-            
         }
+        
     }
 
 }

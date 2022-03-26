@@ -53,6 +53,7 @@ public class GameHandler {
                             }
                         }
                         game.players.get(i).setPrevDice(game.players.get(i).getDice());
+                        game.players.get(i).updatePosition();
                         game.players.get(i).setDice(diceNumber);
                     }
                     //check if player go to prison or not
