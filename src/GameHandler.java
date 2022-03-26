@@ -16,7 +16,7 @@ public class GameHandler {
             System.out.println(game.players.get(i).getName() + "'s " + "turn:");
             boolean diceEntered = false;
             while (!diceEntered){
-                int diceNumber = scanner.nextInt();
+                int diceNumber = Integer.parseInt(scanner.nextLine());
                 if(diceNumber>6 || diceNumber<1){
                     System.out.println("Wrong dice number please try again");
                 }else{
@@ -27,7 +27,7 @@ public class GameHandler {
                     if(game.players.get(i).getDice() == 6){
                         diceEntered = false;
                         while (!diceEntered){
-                            diceNumber = scanner.nextInt();
+                            diceNumber = Integer.parseInt(scanner.nextLine());
                             if(diceNumber>6 || diceNumber<1){
                                 System.out.println("Wrong dice number please try again");
                             }else{
@@ -57,7 +57,6 @@ public class GameHandler {
                 }
             }
         }
-        scanner.close();
         roundActions();
         checkWin(scanner);
     }
@@ -79,7 +78,7 @@ public class GameHandler {
             if(negativeCash && player.getCash()>0){
                 negativeCash = false;
             }
-            String input = scanner.next();
+            String input = scanner.nextLine();
             if(input.equals("buy")){
                 if(player.getField() instanceof Invest){
                     try{
@@ -184,7 +183,6 @@ public class GameHandler {
 
     }
     public void roundActions() throws NegativeCashException{
-        gameRound++;
         Prison.prisonCheck();
     }
     public void checkWin(Scanner scanner) throws NegativeCashException{
