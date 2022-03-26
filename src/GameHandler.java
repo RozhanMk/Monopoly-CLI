@@ -15,22 +15,40 @@ public class GameHandler {
         for(int i = 0 ; i < game.players.size() ; i++){
             System.out.println(game.players.get(i).getName() + "'s " + "turn:");
             boolean diceEntered = false;
-            while (!diceEntered){
-                int diceNumber = Integer.parseInt(scanner.nextLine());
-                if(diceNumber>6 || diceNumber<1){
+            while (!diceEntered) {
+                int diceNumber = 0;
+                boolean diceCheck = false;
+                while (!diceCheck){
+                    try {
+                        diceNumber = Integer.parseInt(scanner.nextLine());
+                        diceCheck = true;
+                    } catch (NumberFormatException e) {
+                        System.out.println("Please dice number");
+                    }
+                }
+                if (diceNumber > 6 || diceNumber < 1) {
                     System.out.println("Wrong dice number please try again");
-                }else{
+                } else {
                     diceEntered = true;
                     game.players.get(i).setPrevDice(game.players.get(i).getDice());
                     game.players.get(i).setDice(diceNumber);
                     //here player can enter dice twice
-                    if(game.players.get(i).getDice() == 6){
+                    if (game.players.get(i).getDice() == 6) {
                         diceEntered = false;
-                        while (!diceEntered){
-                            diceNumber = Integer.parseInt(scanner.nextLine());
-                            if(diceNumber>6 || diceNumber<1){
+                        while (!diceEntered) {
+                            diceNumber = 0;
+                            diceCheck = false;
+                            while (!diceCheck){
+                                try {
+                                    diceNumber = Integer.parseInt(scanner.nextLine());
+                                    diceCheck = true;
+                                } catch (NumberFormatException e) {
+                                    System.out.println("Please dice number");
+                                }
+                            }
+                            if (diceNumber > 6 || diceNumber < 1) {
                                 System.out.println("Wrong dice number please try again");
-                            }else{
+                            } else {
                                 diceEntered = true;
                             }
                         }
@@ -38,22 +56,22 @@ public class GameHandler {
                         game.players.get(i).setDice(diceNumber);
                     }
                     //check if player go to prison or not
-                    if(game.players.get(i).getDice() == 6 && game.players.get(i).getPrevDice() == 6){
+                    if (game.players.get(i).getDice() == 6 && game.players.get(i).getPrevDice() == 6) {
                         Prison.prisoners.add(game.players.get(i));
                         game.players.get(i).setIsInJail(true);
                         game.players.get(i).setPosition(12);
                     }
                     // check if Player is in jail or not ; if player is in jail he/she only can have dice number 1 to get out of jail
-                    if(game.players.get(i).isIsInJail()){
-                        if(game.players.get(i).getDice() == 1){
+                    if (game.players.get(i).isIsInJail()) {
+                        if (game.players.get(i).getDice() == 1) {
                             Prison.removePrisoner(game.players.get(i));
                             game.players.get(i).updatePosition();
                         }
-                    }else{
+                    } else {
                         game.players.get(i).updatePosition();
                     }
                     game.players.get(i).getField().onFieldActions(game, game.players.get(i));
-                    playerTurn(game.players.get(i) , scanner);
+                    playerTurn(game.players.get(i), scanner);
                 }
             }
         }
