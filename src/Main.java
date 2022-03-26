@@ -11,6 +11,7 @@ public class Main {
             String input = scanner.nextLine();
             if(input.equals("create_game")){
                 gameCreated = true;
+                System.out.println("new game created");
             }else{
                 // Will be replaced with exception
                 System.out.println("no game created");

@@ -12,6 +12,7 @@ public class Game {
     public void setUpGame( Scanner scanner) throws NegativeCashException{
         boolean gameStarted = false;
         int id = 0;
+        System.out.println("Enter player names(You can enter time with time x)");
         String input = scanner.nextLine();
         while(!gameStarted){
             if(input.contains("Time")){
@@ -24,15 +25,27 @@ public class Game {
             }else if(input.equals("start_game")){
                 if(players.size() >=2 && players.size() <=4){
                     gameStarted = true;
+                    System.out.println("Game Started");
                     Empty.setNumberOfBuildings(players.size() * 5);
                 }else{
                     System.out.println("no game created");
+                    System.out.println("The total count of your players is " + players.size());
                 }
-            }else{
+            }else if(input.contains("delete")){
+                try{
+                    String player_name = input.split(" ")[1];
+                    players.removeIf(player -> player.getName().equals(player_name));
+                }
+                catch (IndexOutOfBoundsException e){
+                    System.out.println("Your input is wrong");
+                }
+            } else{
                 players.add(new Player(input , id));
                 id++;
             }
-            input = scanner.next();
+            if(!gameStarted){
+                input = scanner.nextLine();
+            }
         }
         GameHandler gameHandler = new GameHandler(this);
         gameHandler.startRound(scanner);
