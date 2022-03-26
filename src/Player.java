@@ -206,9 +206,6 @@ public class Player {
                 withoutProperty = false;
             }
         }
-        if(withoutProperty){
-            return null;
-        }
         return temp;
     }
 
