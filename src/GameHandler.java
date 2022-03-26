@@ -112,7 +112,7 @@ public class GameHandler {
             else if(input.contains("sell")){
                 String[] inputs = input.split(" ");
                 try{
-                    int position = Integer.parseInt(inputs[1]);
+                    int position = Integer.parseInt(inputs[1]) - 1;
                     if(player.getField(position) instanceof Invest){
                         try{
                             player.sell((Invest) player.getField(position));

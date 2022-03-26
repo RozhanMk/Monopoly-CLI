@@ -35,5 +35,6 @@ public class Empty extends Invest{
     @Override
     public void onFieldActions(Game game, Player player) throws NegativeCashException {
         super.onFieldActions(game, player);
+        setCost(100);
     }
 }
