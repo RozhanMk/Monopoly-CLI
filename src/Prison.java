@@ -13,7 +13,6 @@ public class Prison extends Field{
     }
     public static void prisonCheck() throws NegativeCashException{
         for (int i = 0 ; i < prisoners.size() ; i++){
-            prisoners.get(i).setJailCount(prisoners.get(i).getJailCount() + 1);
             prisoners.get(i).decreaseCash(10);
         }
     }

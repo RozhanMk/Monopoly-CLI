@@ -82,6 +82,7 @@ public class GameHandler {
     public void playerTurn(Player player , Scanner scanner) throws NegativeCashException{
         boolean turnFinished = false;
         boolean negativeCash = false;
+        boolean builded = false;
         if(player.isBankrupt()){
             if(game.players.size() != 1) {
                 System.out.println("Player + " + player.getName() + "You have lost the game");
@@ -94,6 +95,7 @@ public class GameHandler {
             negativeCash = true;
         }
         while (!turnFinished){
+            //checks if user has built a house or not
             if(negativeCash && player.getCash()>0){
                 negativeCash = false;
             }
@@ -154,7 +156,7 @@ public class GameHandler {
                 }else{
                     if(player.getField() instanceof Airport){
                         try{
-                            player.fly((Airport) player.getField() , Integer.parseInt(inputs[1]));
+                            player.fly((Airport) player.getField() , Integer.parseInt(inputs[1]) - 1);
                         }
                         catch (SameAirportException | NotTypeException e){
                             System.out.println(e.getMessage());
@@ -165,15 +167,22 @@ public class GameHandler {
                 }
             }
             else if(input.equals("build")){
-                if(player.getField() instanceof Empty){
-                    try{
-                        player.build((Empty)player.getField());
-                    }catch(InvestNotOwnedException| BuildingsNotEqual| MaxBuildingsReached| InvestOutOfCashException e){
-                        System.out.println(e.getMessage());
+                if(!builded){
+                    if(player.getField() instanceof Empty){
+                        try{
+                            player.build((Empty)player.getField());
+                        }catch(InvestNotOwnedException| BuildingsNotEqual| MaxBuildingsReached| InvestOutOfCashException e){
+                            System.out.println(e.getMessage());
+                        }catch (NullPointerException e){
+                            System.out.println("You don't own this empty field");
+                        }
                     }
-                }
-                else{
-                    System.out.println("You cannot build here!");
+                    else{
+                        System.out.println("You cannot build here!");
+                    }
+                    builded = true;
+                }else{
+                    System.out.println("you can't build any more house");
                 }
             }
             else if(input.equals("index")){

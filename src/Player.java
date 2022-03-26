@@ -14,7 +14,6 @@ public class Player {
     private int prevDice;
     private boolean[] areas; // from 0 to 23. All the areas
     private boolean isInJail;
-    private int jailCount;
     private int dice;
     private boolean hasInvestInBank;
     private boolean noTax;
@@ -27,7 +26,6 @@ public class Player {
         saved = 0;
         position = 0;
         dice = 0;
-        jailCount = 0;
         areas = new boolean[24];
         noTax = false;
     }
@@ -99,14 +97,6 @@ public class Player {
 
     public void setIsInJail(boolean isInJail) {
         this.isInJail = isInJail;
-    }
-
-    public int getJailCount() {
-        return this.jailCount;
-    }
-
-    public void setJailCount(int jailCount) {
-        this.jailCount = jailCount;
     }
 
     public int getDice() {
@@ -284,6 +274,6 @@ public class Player {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Player player = (Player) o;
-        return id == player.id && Double.compare(player.cash, cash) == 0 && Double.compare(player.saved, saved) == 0 && position == player.position && isInJail == player.isInJail && jailCount == player.jailCount && dice == player.dice && hasInvestInBank == player.hasInvestInBank && Objects.equals(name, player.name) && Arrays.equals(areas, player.areas);
+        return id == player.id && Double.compare(player.cash, cash) == 0 && Double.compare(player.saved, saved) == 0 && position == player.position && isInJail == player.isInJail && dice == player.dice && hasInvestInBank == player.hasInvestInBank && Objects.equals(name, player.name) && Arrays.equals(areas, player.areas);
     }
 }
