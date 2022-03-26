@@ -9,12 +9,11 @@ public class Game {
     public List<Player> players = new ArrayList<>();
     private Integer time;
 //    private int
-    public void setUpGame() throws NegativeCashException{
-        Scanner scanner = new Scanner(System.in);
+    public void setUpGame( Scanner scanner) throws NegativeCashException{
         boolean gameStarted = false;
         int id = 0;
+        String input = scanner.nextLine();
         while(!gameStarted){
-            String input = scanner.next();
             if(input.contains("Time")){
                 String[] inputArray = input.split(" ");
                 try {
@@ -24,7 +23,6 @@ public class Game {
                 }
             }else if(input.equals("start_game")){
                 if(players.size() >=2 && players.size() <=4){
-                    scanner.close();
                     gameStarted = true;
                     Empty.setNumberOfBuildings(players.size() * 5);
                 }else{
@@ -34,9 +32,10 @@ public class Game {
                 players.add(new Player(input , id));
                 id++;
             }
+            input = scanner.next();
         }
         GameHandler gameHandler = new GameHandler(this);
-        gameHandler.startRound();
+        gameHandler.startRound(scanner);
     }
     public int getRank(Player player){
         List<Player> temp = new ArrayList<>(this.getPlayers());

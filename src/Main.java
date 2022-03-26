@@ -8,7 +8,7 @@ public class Main {
         boolean gameCreated = false;
         // Waiting for user to enter create_game
         while(!gameCreated){
-            String input = scanner.next();
+            String input = scanner.nextLine();
             if(input.equals("create_game")){
                 gameCreated = true;
             }else{
@@ -16,8 +16,7 @@ public class Main {
                 System.out.println("no game created");
             }
         }
-        scanner.close();
         Game game = new Game();
-        game.setUpGame();
+        game.setUpGame(scanner);
     }
 }
