@@ -206,14 +206,14 @@ public class Player {
             if(getField(getProperties().get(i)) instanceof Cinema){
                 res+= (getField(getProperties().get(i)).getCost())/2;
             }else if(getField(getProperties().get(i)) instanceof Empty){
-               if(((Empty)getField(getProperties().get(i))).getLevel() == 5){
+                if(((Empty)getField(getProperties().get(i))).getLevel() == 5){
                     res+=(((Empty)getField(getProperties().get(i))).getLevel()*150+100-50)/2;
                }else{
                     res+=(((Empty)getField(getProperties().get(i))).getLevel()*150+100)/2;
                }
             }
         }
-        return res<(-cash);
+        return (int)res<(-(int)cash);
     }
 
     public void build(Empty empty) throws InvestNotOwnedException, BuildingsNotEqual, MaxBuildingsReached, InvestOutOfCashException, NegativeCashException {

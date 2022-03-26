@@ -71,7 +71,12 @@ public class GameHandler {
                     } else {
                         game.players.get(i).updatePosition();
                     }
-                    game.players.get(i).getField().onFieldActions(game, game.players.get(i));
+                    try{
+                        game.players.get(i).getField().onFieldActions(game, game.players.get(i));
+                    }
+                    catch (NegativeCashException ignored){
+
+                    }
                     playerTurn(game.players.get(i), scanner);
                 }
             }
@@ -79,13 +84,13 @@ public class GameHandler {
         roundActions();
         checkWin(scanner);
     }
-    public void playerTurn(Player player , Scanner scanner) throws NegativeCashException{
+    public void playerTurn(Player player , Scanner scanner){
         boolean turnFinished = false;
         boolean negativeCash = false;
         boolean builded = false;
         if(player.isBankrupt()){
             if(game.players.size() != 1) {
-                System.out.println("Player + " + player.getName() + "You have lost the game");
+                System.out.println(player.getName() + " You have lost the game!!");
                 game.players.remove(player);
             }
             turnFinished = true;
@@ -104,7 +109,7 @@ public class GameHandler {
                 if(player.getField() instanceof Invest){
                     try{
                         player.buy( (Invest) player.getField());
-                    }catch (InvestOutOfCashException | InvestOwnedByAnotherException e){
+                    }catch (InvestOutOfCashException | InvestOwnedByAnotherException  | NegativeCashException e){
                         System.out.println(e.getMessage());
                     }
                 }else{
@@ -134,7 +139,7 @@ public class GameHandler {
                     try {
                         player.free();
                         System.out.println("You bought your freedom =)");
-                    } catch (InvestOutOfCashException e) {
+                    } catch (InvestOutOfCashException  | NegativeCashException e) {
                         System.out.println(e.getMessage());
                     }
                 }else{
@@ -145,7 +150,7 @@ public class GameHandler {
                 try{
                     player.invest();
                 }
-                catch (NotTypeException e){
+                catch (NotTypeException  | NegativeCashException  e){
                     System.out.println(e.getMessage());
                 }
             }
@@ -171,7 +176,7 @@ public class GameHandler {
                     if(player.getField() instanceof Empty){
                         try{
                             player.build((Empty)player.getField());
-                        }catch(InvestNotOwnedException| BuildingsNotEqual| MaxBuildingsReached| InvestOutOfCashException e){
+                        }catch(InvestNotOwnedException| BuildingsNotEqual| MaxBuildingsReached| NegativeCashException |InvestOutOfCashException e){
                             System.out.println(e.getMessage());
                         }catch (NullPointerException e){
                             System.out.println("You don't own this empty field");
@@ -189,7 +194,7 @@ public class GameHandler {
                 System.out.println(player.getPosition() + 1);
             }else if(input.equals("property")){
                 System.out.println("Cash : " + player.getCash());
-                if(player.getProperties() == null){
+                if(player.getProperties().size() == 0){
                     System.out.println("You don't own anything");
                 }else{
                     System.out.println("Properties : " + player.getProperties());
