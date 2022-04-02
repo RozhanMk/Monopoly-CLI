@@ -17,6 +17,8 @@ public class RandomField extends Field{
         if(number == 2){
             System.out.println("Go to the prison");
             Prison.prisoners.add(player);
+            player.setIsInJail(true);
+            player.setPosition(12);
         }
         if(number == 3){
             System.out.println("Give 10 percent of your money to the bank");
@@ -24,11 +26,12 @@ public class RandomField extends Field{
         }
         if(number == 4){
             System.out.println("Go 3 houses further");
-            player.setPosition(player.getPosition()+3);
+            player.setPosition((player.getPosition()+3) % 24);
         }
         if(number == 5){
             System.out.println("You are free");
             Prison.removePrisoner(player);
+            player.setIsInJail(false);
         }
         if(number == 6){
             System.out.println("You don't need to pay taxes for once");
