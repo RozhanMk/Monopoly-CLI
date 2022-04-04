@@ -6,18 +6,18 @@ import java.util.List;
 import java.util.Objects;
 
 public class Player {
-    private String name;
-    private int id; // 1 2 3 ...
+    private final String name;
+    private final int id; // 1 2 3 ...
     private double cash;
     private double saved; //invested money in bank
     private int position; // from 0 to 23
     private int prevDice;
-    private boolean[] areas; // from 0 to 23. All the areas
+    private final boolean[] areas; // from 0 to 23. All the areas
     private boolean isInJail;
     private int dice;
     private boolean hasInvestInBank;
     private boolean noTax; //implement the 6th luck card
-    private List<Empty> buildings = new ArrayList<>();
+    private final List<Empty> buildings = new ArrayList<>();
 
     public Player(String name , int id){
         this.name = name;
@@ -79,8 +79,7 @@ public class Player {
     }
 
     public void updatePosition(){
-        int newPosition = (position + dice) % 24;
-        position = newPosition;
+        position = (position + dice) % 24;
     }
 
     public Field getField(){
@@ -121,7 +120,7 @@ public class Player {
         this.noTax = noTax;
     }
 
-    public boolean buy(Invest invest) throws InvestOwnedByAnotherException, InvestOutOfCashException, NegativeCashException {
+    public void buy(Invest invest) throws InvestOwnedByAnotherException, InvestOutOfCashException, NegativeCashException {
         
         if(invest.getCost() <= cash){
             if(invest.getOwner() == null){
@@ -131,7 +130,6 @@ public class Player {
                 if(invest instanceof Empty){
                     buildings.add((Empty) invest);
                 }
-                return true;
             }else{
                 throw new InvestOwnedByAnotherException("this place has been bought!");
             }
@@ -140,33 +138,30 @@ public class Player {
             throw new InvestOutOfCashException("you can't afford to buy this place!");
         }
     }
-    public boolean free() throws InvestOutOfCashException, NegativeCashException{
+    public void free() throws InvestOutOfCashException, NegativeCashException{
         if(cash >= 50){
             decreaseCash(50);
             isInJail = false;
             Prison.removePrisoner(this);
-            return true;
         }else{
             throw new InvestOutOfCashException("You don't have enough money!");
         }
         
     }
-    public boolean sell(Invest invest) throws InvestNotOwnedException{
+    public void sell(Invest invest) throws InvestNotOwnedException{
         if( areas[invest.getId()] ){
             increaseCash(invest.getCost()/2);
             areas[invest.getId()] = false;
             invest.setOwner(null);
-            return true ;
         }else{
             throw new InvestNotOwnedException("you don't own this place!");
         }
     }
-    public boolean fly(Airport airport , int airportId) throws NotTypeException , SameAirportException{
+    public void fly(Airport airport , int airportId) throws NotTypeException , SameAirportException{
         if( airport.getId() != airportId ){
             if(getField(airportId) instanceof Airport){
                 position = airportId;
                 cash -= airport.getFine();
-                return true;
             }else{
                 throw new NotTypeException("the destination is not an airport!");
             }
@@ -176,14 +171,13 @@ public class Player {
     }
 
     //invest half of cash in the bank
-    public boolean invest() throws NotTypeException, NegativeCashException{
+    public void invest() throws NotTypeException, NegativeCashException{
         if(position == 20){
             if(!hasInvestInBank){
                 saved = cash/2;
                 decreaseCash(cash/2);
                 hasInvestInBank = true;
             }
-            return true;
         }else{
             throw new NotTypeException("you're not in bank!");
         }
@@ -191,7 +185,7 @@ public class Player {
 
     // return a list of properties
     public ArrayList<Integer> getProperties(){
-        ArrayList<Integer> temp = new ArrayList<Integer>();
+        ArrayList<Integer> temp = new ArrayList<>();
         for(int i = 0 ; i < 24 ; i++){
             if(areas[i]){
                 temp.add(i+1);
@@ -229,9 +223,9 @@ public class Player {
                 throw new MaxBuildingsReached("Board have reached its maximum buildings");
             }
             int maxBuildings = 0;
-            for(int i = 0 ; i < buildings.size() ; i++){
-                if(buildings.get(i).getLevel() > maxBuildings){
-                    maxBuildings = buildings.get(i).getLevel();
+            for (Empty building : buildings) {
+                if (building.getLevel() > maxBuildings) {
+                    maxBuildings = building.getLevel();
                 }
             }
             boolean is_equal = true;

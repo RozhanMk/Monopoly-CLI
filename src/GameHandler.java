@@ -1,16 +1,12 @@
 import exceptions.*;
-
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Scanner;
-
 public class GameHandler {
-    private Game game;
+    private final Game game;
     private int gameRound = 1;
     public GameHandler(Game game) {
         this.game = game;
     }
-    public void startRound(Scanner scanner) throws NegativeCashException{
+    public void startRound(Scanner scanner){
         System.out.println("Round " + gameRound);
         for(int i = 0 ; i < game.players.size() ; i++){
             System.out.println(game.players.get(i).getName() + "'s " + "turn:");
@@ -207,9 +203,7 @@ public class GameHandler {
                 }else{
                     System.out.println("Properties : " + player.getProperties());
                 }
-            }else if(input.equals("time")){
-                //todo
-            }else if(input.equals("rank")){
+            } else if(input.equals("rank")){
                 System.out.println("Your rank is : " + game.getRank(player));
             }else if(input.equals("end")){
                 if(negativeCash){
@@ -223,10 +217,10 @@ public class GameHandler {
         }
 
     }
-    public void roundActions() throws NegativeCashException{
+    public void roundActions(){
         Prison.prisonCheck();
     }
-    public void checkWin(Scanner scanner) throws NegativeCashException{
+    public void checkWin(Scanner scanner){
         if(game.players.size() == 1){
             System.out.println(game.players.get(0).getName() + " you have won the game");
             System.out.println("Game has finished");

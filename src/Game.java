@@ -3,13 +3,11 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Scanner;
 
-import exceptions.NegativeCashException;
-
 public class Game {
     public List<Player> players = new ArrayList<>();
     private Integer time;
 
-    public void setUpGame( Scanner scanner) throws NegativeCashException{
+    public void setUpGame( Scanner scanner){
         boolean gameStarted = false;
         int id = 0;
         System.out.println("Enter player names(You can enter time with time x)");
@@ -78,8 +76,8 @@ public class Game {
     }
     public void turnByDice(){
         for (int i = 0 ; i < players.size() - 1 ; i++){
-            for (int j = 0 ; j < players.size() ; j++){
-                if(players.get(j).getDice() < players.get(i).getDice()){
+            for (int j = i ; j < players.size() ; j++){
+                if(players.get(j).getDice() > players.get(i).getDice()){
                     Collections.swap(players , i , j);
                 }
             }

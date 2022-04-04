@@ -11,9 +11,14 @@ public class Prison extends Field{
     public static void removePrisoner(Player p){
         prisoners.remove(p);
     }
-    public static void prisonCheck() throws NegativeCashException{
+    public static void prisonCheck(){
         for (int i = 0 ; i < prisoners.size() ; i++){
-            prisoners.get(i).decreaseCash(10);
+            try{
+                prisoners.get(i).decreaseCash(10);
+            }
+            catch(NegativeCashException ignored){
+
+            }
         }
     }
 }

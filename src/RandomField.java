@@ -22,7 +22,7 @@ public class RandomField extends Field{
         }
         if(number == 3){
             System.out.println("Give 10 percent of your money to the bank");
-            player.decreaseCash( (1/10)*player.getCash() );
+            player.decreaseCash( (1.0/10)*player.getCash() );
         }
         if(number == 4){
             System.out.println("Go 3 houses further");

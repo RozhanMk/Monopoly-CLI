@@ -1,10 +1,10 @@
 import exceptions.NegativeCashException;
 
 public abstract class Field {
-    private int id;
+    private final int id;
     private double fine;
-    private boolean colored;
-    private ColorType color;
+    private final boolean colored;
+    private final ColorType color;
 
     public Field(int id, boolean colored , ColorType color) {
         this.id = id;
@@ -40,8 +40,5 @@ public abstract class Field {
         return 0;
     }
     public void onFieldActions(Game game , Player player) throws NegativeCashException{
-    }
-    public void roundActions(){
-
     }
 }
