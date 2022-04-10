@@ -27,7 +27,7 @@ public class Game {
                     Empty.setNumberOfBuildings(players.size() * 5);
                 }else{
                     System.out.println("no game created");
-                    System.out.println("The total count of your players is " + players.size());
+                    System.out.println("The total count of your players is (to remove a player enter delete 'player name') " + players.size());
                 }
             //delete the player
             }else if(input.contains("delete")){
