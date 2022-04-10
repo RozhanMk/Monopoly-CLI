@@ -8,6 +8,9 @@ public class GameHandler {
     }
     public void startRound(Scanner scanner){
         System.out.println("Round " + gameRound);
+        if (gameRound == 2){
+            System.out.println("Player turns have been changed according to the dice number");
+        }
         for(int i = 0 ; i < game.players.size() ; i++){
             System.out.println(game.players.get(i).getName() + "'s " + "turn:");
             boolean diceEntered = false;
@@ -223,7 +226,7 @@ public class GameHandler {
     public void checkWin(Scanner scanner){
         if(game.players.size() == 1){
             System.out.println(game.players.get(0).getName() + " you have won the game");
-            System.out.println("Game has finished");
+            System.out.println("Game is finished");
             System.exit(0);
         }else{
             gameRound++;

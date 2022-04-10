@@ -10,17 +10,10 @@ public class Game {
     public void setUpGame( Scanner scanner){
         boolean gameStarted = false;
         int id = 0;
-        System.out.println("Enter player names(You can enter time with time x)");
+        System.out.println("Enter player names");
         String input = scanner.nextLine();
         while(!gameStarted){
-            if(input.contains("Time")){
-                String[] inputArray = input.split(" ");
-                try {
-                    time = Integer.parseInt(inputArray[1]);
-                } catch (Exception e) {
-                    System.out.println("Your input for time was Wrong");
-                }
-            }else if(input.equals("start_game")){
+            if(input.equals("start_game")){
                 if(players.size() >=2 && players.size() <=4){
                     gameStarted = true;
                     System.out.println("Game Started");
